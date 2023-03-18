@@ -1,6 +1,6 @@
 [![auto-update-workflow](https://github.com/digrouz/docker-unifi-controller/actions/workflows/auto-update.yml/badge.svg)](https://github.com/digrouz/docker-unifi-controller/actions/workflows/auto-update.yml)
 [![dockerhub-workflow](https://github.com/digrouz/docker-unifi-controller/actions/workflows/dockerhub.yml/badge.svg)](https://github.com/digrouz/docker-unifi-controller/actions/workflows/dockerhub.yml)
-![Docker Pulls](https://img.shields.io/docker/pulls/digrouz/unifi-controller)
+![Docker Pulls](https://img.shields.io/docker/pulls/ndgconsulting/unifi-controller)
 
 # docker-unifi-controller
 Install Unifi Controller into a Linux container
@@ -25,6 +25,8 @@ https://www.ui.com/download/unifi/
       -e GID=<GID default:12345> \
       -e AUTOUPGRADE=<0|1 default:0> \
       -e TZ=<timezone default:Europe/Brussels> \
+      -e XMS=<memory default:256> \
+      -e XMX=<memory default:1024> \
       -p 8080:8080 \
       -p 8443:8443 \
       -p 8843:8843 \
@@ -51,6 +53,14 @@ This variable is not mandatory and specifies if the container has to launch soft
 ### `TZ`
 
 This variable is not mandatory and specifies the timezone to be configured within the container. It has default value `Europe/Brussels`.
+
+### `XMS`
+
+This variable is not mandatory and specifies the starting memory alocated to the java jvm. It has default value `256`.
+
+### `XMX`
+
+This variable is not mandatory and specifies the maximum memory alocated to the java jvm. It has default value `1024`.
 
 ## Notes
 

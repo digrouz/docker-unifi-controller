@@ -1,0 +1,35 @@
+#!/command/with-contenv sh
+
+mkdir -p /config/{data,logs}
+
+if [ -L /usr/lib/unifi/data && ! /usr/lib/unifi/data -ef /config/data ]; then
+  rm -rf /usr/lib/unifi/data
+fi
+if [ ! -L "/usr/lib/unifi/data" ];then
+  ln -s /config/data /usr/lib/unifi/data
+fi
+
+if [ -L /usr/lib/unifi/logs && ! /usr/lib/unifi/logs -ef /config/logs ]; then
+  rm -rf /usr/lib/unifi/logs
+fi
+if [ ! -L "/usr/lib/unifi/logs" ];then
+  ln -s /config/logs /usr/lib/unifi/logs
+fi
+
+if [ ! -e /config/data/system.properties ]; then
+    cp /etc/s6-overlay/s6-rc.d/unifi-controller-config/defaults/system.properties /config/data
+fi
+
+if [ -n $XMX ]; then
+  sed -i "s/unifi.xmx=.*/unifi.xmx=$XMX/" /config/data/system.properties 
+fi
+
+if [ -n $XMS ]; then
+  sed -i "s/unifi.xms=.*/unifi.xms=$XMS/" /config/data/system.properties 
+fi
+
+if [ ! -f /config/data/keystore ];then
+  keytool -genkey -keyalg RSA -alias unifi -keystore /config/data/keystore \
+    -storepass aircontrolenterprise -keypass aircontrolenterprise -validity 3650 \
+    -keysize 4096 -dname "cn=unifi" -ext san=dns:unifi
+fi
