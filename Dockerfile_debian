@@ -1,0 +1,48 @@
+FROM digrouz/debian-s6:latest
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+ARG UNIFI_VERSION='7.3.83'
+
+### Environment variables
+ENV TERM='xterm' \
+    UNIFI_VERSION="${UNIFI_VERSION}"
+
+# Copy config files
+COPY root/ /
+
+### Install Application
+RUN set -x && \
+    apt-get update && \
+    apt-get -y --no-install-recommends install \
+      ca-certificates \
+      curl \
+      binutils \
+      gnupg2 \
+      openjdk-11-jre-headless \
+      jsvc \
+      libcap2 \
+      logrotate \
+    && \
+    curl -SsL https://www.mongodb.org/static/pgp/server-3.6.asc -o /tmp/mongo.asc && \ 
+    apt-key add /tmp/mongo.asc && \
+    echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list && \
+    apt update && \
+    apt-get -y --no-install-recommends install \
+      mongodb-org-server \
+    && \
+    curl -SsL https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb -o /tmp/unifi.deb && \
+    dpkg -i /tmp/unifi.deb && \
+    mkdir -p /config && \
+    apt-get -y autoremove && \
+    apt-get -y clean && \
+    apt-get -y autoclean && \
+    rm -rf /tmp/* \
+           /var/lib/apt/lists/*  \
+           /var/tmp/*
+
+    
+# Expose volumes
+VOLUME ["/config"]
+
+# Expose ports
+EXPOSE 8080 8443 8843 8880

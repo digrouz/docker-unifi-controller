@@ -1,0 +1,10 @@
+#!/command/with-contenv sh
+
+if [ -z ${XMX} ]; then
+    XMX="1024"
+fi
+if [ -z ${XMS} ]; then
+    XMS="256"
+fi
+
+exec s6-setuidgid appuser java -Xms"${MEM_STARTUP}M" -Xmx"${MEM_LIMIT}M" -Dlog4j2.formatMsgNoLookups=true -jar /usr/lib/unifi/lib/ace.jar start
