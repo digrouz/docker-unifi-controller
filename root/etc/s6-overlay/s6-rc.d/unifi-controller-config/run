@@ -1,6 +1,6 @@
 #!/command/with-contenv sh
 
-mkdir -p /config/{data,logs}
+mkdir -p /config/{data,logs,run}
 
 if [ -L /usr/lib/unifi/data && ! /usr/lib/unifi/data -ef /config/data ]; then
   rm -rf /usr/lib/unifi/data
@@ -14,6 +14,13 @@ if [ -L /usr/lib/unifi/logs && ! /usr/lib/unifi/logs -ef /config/logs ]; then
 fi
 if [ ! -L "/usr/lib/unifi/logs" ];then
   ln -s /config/logs /usr/lib/unifi/logs
+fi
+
+if [ -L /usr/lib/unifi/run && ! /usr/lib/unifi/run -ef /config/run ]; then
+  rm -rf /usr/lib/unifi/run
+fi
+if [ ! -L "/usr/lib/unifi/run" ];then
+  ln -s /config/run /usr/lib/unifi/run
 fi
 
 if [ ! -e /config/data/system.properties ]; then
