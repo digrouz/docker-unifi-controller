@@ -1,3 +1,5 @@
 #!/command/with-contenv sh
 
+cd /usr/lib/unifi
+
 exec s6-setuidgid appuser java -Xms"${XMS:-256}M" -Xmx"${XMX:-1024}M" -Dlog4j2.formatMsgNoLookups=true -jar /usr/lib/unifi/lib/ace.jar start
