@@ -30,6 +30,11 @@ if [ -L "/usr/lib/unifi/run" ] && [ "$(readlink /usr/lib/unifi/run)" != "/config
   ln -s /config/run /usr/lib/unifi/run
 fi
 
+if [ ! -L "/var/log/unfi" ] || [ "$(readlink /var/log/unifi)" != "/config/logs" ];then
+  rm -rf /var/log/unifi
+  ln -s /config/logs /var/log/unifi
+fi
+
 if [ ! -e /config/data/system.properties ]; then
     cp /etc/s6-overlay/s6-rc.d/unifi-controller-config/defaults/system.properties /config/data/
 fi
