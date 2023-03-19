@@ -1,10 +1,6 @@
 #!/command/with-contenv sh
 
-if [ -z "${XMX}" ]; then
-    XMX="1024"
-fi
-if [ -z "${XMS}" ]; then
-    XMS="256"
-fi
+XMX=${XMX:-1024}"
+XMS=${XMS:-256}"
 
 exec s6-setuidgid appuser java -Xms"${XMS}M" -Xmx"${XMX}M" -Dlog4j2.formatMsgNoLookups=true -jar /usr/lib/unifi/lib/ace.jar start
