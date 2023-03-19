@@ -34,11 +34,11 @@ if [ ! -e /config/data/system.properties ]; then
     cp /etc/s6-overlay/s6-rc.d/unifi-controller-config/defaults/system.properties /config/data/
 fi
 
-if [ -n $XMX ]; then
+if [ -n "$XMX" ]; then
   sed -i "s/unifi.xmx=.*/unifi.xmx=$XMX/" /config/data/system.properties 
 fi
 
-if [ -n $XMS ]; then
+if [ -n "$XMS" ]; then
   sed -i "s/unifi.xms=.*/unifi.xms=$XMS/" /config/data/system.properties 
 fi
 
