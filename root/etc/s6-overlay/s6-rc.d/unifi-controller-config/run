@@ -15,17 +15,17 @@ if [ ! -d /config/data ];then
   mkdir -p /config/run
 fi 
 
-if [ ! -L "/usr/lib/unifi/data" ] && [ "$(readlink /usr/lib/unifi/data)" -ef "/config/data" ];then
+if [ -L "/usr/lib/unifi/data" ] && [ "$(readlink /usr/lib/unifi/data)" -ef "/config/data" ];then
   rm -rf /usr/lib/unifi/data
   ln -s /config/data /usr/lib/unifi/data
 fi
 
-if [ ! -L "/usr/lib/unifi/logs" ] && [ "$(readlink /usr/lib/unifi/logs)" -ef "/config/logs" ];then
+if [ -L "/usr/lib/unifi/logs" ] && [ "$(readlink /usr/lib/unifi/logs)" -ef "/config/logs" ];then
   rm -rf /usr/lib/unifi/logs
   ln -s /config/logs /usr/lib/unifi/logs
 fi
 
-if [ ! -L "/usr/lib/unifi/run" ] && [ "$(readlink /usr/lib/unifi/run)" -ef "/config/run" ];then
+if [ -L "/usr/lib/unifi/run" ] && [ "$(readlink /usr/lib/unifi/run)" -ef "/config/run" ];then
   rm -rf /usr/lib/unifi/run
   ln -s /config/run /usr/lib/unifi/run
 fi
