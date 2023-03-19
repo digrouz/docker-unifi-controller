@@ -1,14 +1,17 @@
 #!/command/with-contenv sh
 
 if [ ! -d /config/data ];then
+  rm -rf /config/data
   mkdir -p /config/data
 fi 
 
 if [ ! -d /config/logs ];then
+  rm -rf /config/logs
   mkdir -p /config/logs
 fi 
 
 if [ ! -d /config/data ];then
+  rm -rf /config/run
   mkdir -p /config/run
 fi 
 
@@ -28,7 +31,7 @@ if [ ! -L "/usr/lib/unifi/run" ];then
 fi
 
 if [ ! -e /config/data/system.properties ]; then
-    cp /etc/s6-overlay/s6-rc.d/unifi-controller-config/defaults/system.properties /config/data
+    cp /etc/s6-overlay/s6-rc.d/unifi-controller-config/defaults/system.properties /config/data/
 fi
 
 if [ -n $XMX ]; then
