@@ -1,9 +1,9 @@
 #!/command/with-contenv sh
 
-if [ -z ${XMX} ]; then
+if [ -z "${XMX}" ]; then
     XMX="1024"
 fi
-if [ -z ${XMS} ]; then
+if [ -z "${XMS}" ]; then
     XMS="256"
 fi
 
