@@ -1,25 +1,29 @@
 #!/command/with-contenv sh
 
-mkdir -p /config/{data,logs,run}
+if [ ! -d /config/data ];then
+  mkdir -p /config/data
+fi 
 
-if [ -L /usr/lib/unifi/data && ! /usr/lib/unifi/data -ef /config/data ]; then
-  rm -rf /usr/lib/unifi/data
-fi
+if [ ! -d /config/logs ];then
+  mkdir -p /config/logs
+fi 
+
+if [ ! -d /config/data ];then
+  mkdir -p /config/run
+fi 
+
 if [ ! -L "/usr/lib/unifi/data" ];then
+  rm -rf /usr/lib/unifi/data
   ln -s /config/data /usr/lib/unifi/data
 fi
 
-if [ -L /usr/lib/unifi/logs && ! /usr/lib/unifi/logs -ef /config/logs ]; then
-  rm -rf /usr/lib/unifi/logs
-fi
 if [ ! -L "/usr/lib/unifi/logs" ];then
+  rm -rf /usr/lib/unifi/logs
   ln -s /config/logs /usr/lib/unifi/logs
 fi
 
-if [ -L /usr/lib/unifi/run && ! /usr/lib/unifi/run -ef /config/run ]; then
-  rm -rf /usr/lib/unifi/run
-fi
 if [ ! -L "/usr/lib/unifi/run" ];then
+  rm -rf /usr/lib/unifi/run
   ln -s /config/run /usr/lib/unifi/run
 fi
 
