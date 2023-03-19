@@ -31,6 +31,9 @@ https://www.ui.com/download/unifi/
       -p 8443:8443 \
       -p 8843:8843 \
       -p 8880:8880 \
+      -p 3478:3478/udp \
+      -p 1900:1900/udp \
+      -p 10001:10001/udp \
     ndgconsulting/unifi-controller:latest
 
 
@@ -70,6 +73,9 @@ This variable is not mandatory and specifies the maximum memory alocated to the 
 * Port used for application GUI/API as seen in a web browser: `8443`
 * Port used for HTTP portal redirection: `8880`
 * Port used for HTTPS portal redirection: `8843`
+* Port used for STUN Unifi: `3478/UDP`
+* Port used for AP Discovery: `10001/UDP`
+* Port used for Network Layer 2 Discovery: `1900/UDP`
 
 ## Issues
 
