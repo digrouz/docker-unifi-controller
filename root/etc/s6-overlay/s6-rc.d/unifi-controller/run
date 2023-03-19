@@ -7,4 +7,4 @@ if [ -z ${XMS} ]; then
     XMS="256"
 fi
 
-exec s6-setuidgid appuser java -Xms"${MEM_STARTUP}M" -Xmx"${MEM_LIMIT}M" -Dlog4j2.formatMsgNoLookups=true -jar /usr/lib/unifi/lib/ace.jar start
+exec s6-setuidgid appuser java -Xms"${XMS}M" -Xmx"${XMX}M" -Dlog4j2.formatMsgNoLookups=true -jar /usr/lib/unifi/lib/ace.jar start
