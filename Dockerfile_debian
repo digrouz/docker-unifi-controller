@@ -1,7 +1,7 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='7.3.83'
+ARG UNIFI_VERSION='7.4.156'
 
 ### Environment variables
 ENV TERM='xterm' \
