@@ -1,7 +1,7 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='7.4.156-6ee9e412d1'
+ARG UNIFI_VERSION='7.4.156'
 
 ### Environment variables
 ENV TERM='xterm' \
@@ -18,7 +18,7 @@ RUN set -x && \
       curl \
       binutils \
       gnupg2 \
-      openjdk-11-jre-headless \
+      openjdk-17-jre-headless \
       jsvc \
       libcap2 \
       logrotate \
