@@ -2,7 +2,7 @@
 
 UNIFI_URL="http://dl-origin.ubnt.com/unifi/debian/dists/stable/ubiquiti/binary-amd64/Packages"
 
-LAST_VERSION=$(curl -SsLX ${UNIFI_URL} | \
+LAST_VERSION=$(curl -SsL ${UNIFI_URL} | \
                grep -A 7 -m 1 'Package: unifi' | \
                awk -F ': ' '/Version/{print $2;exit}' | \
                awk -F '-' '{print $1}' \
