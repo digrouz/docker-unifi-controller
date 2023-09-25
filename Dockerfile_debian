@@ -1,7 +1,7 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='7.5.174'
+ARG UNIFI_VERSION='7.5.176'
 ARG MONGO_VERSION='3.6'
 
 ### Environment variables
