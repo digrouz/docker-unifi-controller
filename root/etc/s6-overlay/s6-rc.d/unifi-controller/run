@@ -9,7 +9,7 @@ exec s6-setuidgid appuser java \
                             -Dunifi.core.enabled=false \
                             -Dunifi.mongodb.service.enabled=true \
                             -Xms"${XMS:-256}M" \
-                            -Xmx"${XMX:-1024}M" \ 
+                            -Xmx"${XMX:-1024}M" \
                             -Dlog4j2.formatMsgNoLookups=true \
                             -XX:+UseParallelGC \
                             -XX:+ExitOnOutOfMemoryError \
