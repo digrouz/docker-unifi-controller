@@ -6,7 +6,7 @@ exec s6-setuidgid appuser java \
                             -Dfile.encoding=UTF-8 \
                             -Djava.awt.headless=true \
                             -Dapple.awt.UIElement=true \
-                            -Dunifi.core.enabled=false \
+                            -Dunifi.core.enabled=true \
                             -Dunifi.mongodb.service.enabled=true \
                             -Xms"${XMS:-256}M" \
                             -Xmx"${XMX:-1024}M" \
