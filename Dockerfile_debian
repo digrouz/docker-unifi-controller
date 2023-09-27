@@ -1,13 +1,15 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='7.5.176'
+ARG UNIFI_VERSION='7.4.162'
 ARG MONGO_VERSION='3.6'
+ARG JAVA_VERSION='11'
 
 ### Environment variables
 ENV TERM='xterm' \
     UNIFI_VERSION="${UNIFI_VERSION}" \
-    MONGO_VERSION="${MONGO_VERSION}"
+    MONGO_VERSION="${MONGO_VERSION}" \
+    JAVA_VERSION="${JAVA_VERSION}"
 
 # Copy config files
 COPY root/ /
@@ -20,7 +22,7 @@ RUN set -x && \
       curl \
       binutils \
       gnupg2 \
-      openjdk-17-jre-headless \
+      openjdk-${JAVA_VERSION}-jre-headless \
       jsvc \
       libcap2 \
       logrotate \
