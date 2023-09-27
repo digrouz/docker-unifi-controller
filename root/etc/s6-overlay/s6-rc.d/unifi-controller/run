@@ -14,8 +14,7 @@ else
                               -Djava.awt.headless=true \
                               -Dapple.awt.UIElement=true \
                               -Dunifi.core.enabled=false \
-                              -Dunifi.mongodb.service.enabled=true \
-                              -Xms"${XMS:-768}M" \
+                              -Xms"${XMS:-256}M" \
                               -Xmx"${XMX:-1024}M" \
                               -Dlog4j2.formatMsgNoLookups=true \
                               -XX:+UseParallelGC \
