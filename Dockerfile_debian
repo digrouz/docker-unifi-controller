@@ -1,7 +1,7 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='8.0.7'
+ARG UNIFI_VERSION='8.0.24'
 ARG MONGO_VERSION='3.6'
 ARG JAVA_VERSION='17'
 
