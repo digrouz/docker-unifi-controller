@@ -1,4 +1,6 @@
 #!/command/with-contenv sh
 
-chown -R appuser:appuser /config /run/unifi /var/run/unifi /usr/lib/unifi/run
-chmod -R g+w /config /run/unifi /var/run/unifi
+#chown -R appuser:appuser /config /run/unifi /var/run/unifi /usr/lib/unifi/run
+#chmod -R g+w /config /run/unifi /var/run/unifi /usr/lib/unifi/run
+
+echo "nothing"
