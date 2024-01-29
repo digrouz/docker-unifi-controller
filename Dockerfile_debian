@@ -34,7 +34,7 @@ RUN set -x && \
     && \
     curl -SsL https://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_${LIBSSL11_VERSION}_${MONGO_ARCH}.deb -o /tmp/libssl1.1_${LIBSSL11_VERSION}_${MONGO_ARCH}.deb && \
     dpkg -i /tmp/libssl1.1_${LIBSSL11_VERSION}_${MONGO_ARCH}.deb && \
-    curl -SsL https://repo.mongodb.org/apt/debian/dists/buster/mongodb-org/${MONGO_VERSION:3}/main/binary-${MONGO_ARCH}/mongodb-org-server_${MONGO_VERSION}_amd64.deb -o /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
+    curl -SsL https://repo.mongodb.org/apt/debian/dists/buster/mongodb-org/${MONGO_VERSION:0:3}/main/binary-${MONGO_ARCH}/mongodb-org-server_${MONGO_VERSION}_amd64.deb -o /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
     dpkg -i /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
     curl -SsL https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb -o /tmp/unifi.deb && \
     dpkg -i /tmp/unifi.deb && \
