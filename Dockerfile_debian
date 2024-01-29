@@ -22,6 +22,7 @@ RUN set -x && \
       curl \
       binutils \
       gnupg2 \
+      libcurl3-gnutls \
       openjdk-${JAVA_VERSION}-jre-headless \
       jsvc \
       libcap2 \
