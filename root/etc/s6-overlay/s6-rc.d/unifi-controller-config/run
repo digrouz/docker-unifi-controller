@@ -10,7 +10,7 @@ if [ ! -d /config/logs ];then
   mkdir -p /config/logs
 fi 
 
-if [ ! -d /config/data ];then
+if [ ! -d /config/run ];then
   rm -rf /config/run
   mkdir -p /config/run
 fi 
