@@ -1,15 +1,19 @@
 FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG UNIFI_VERSION='8.0.28'
-ARG MONGO_VERSION='4.4'
 ARG JAVA_VERSION='17'
+ARG LIBSSL11_VERSION='1.1.1n-0+deb11u5'
+ARG MONGO_VERSION='4.4.28'
+ARG MONGO_ARCH='amd64'
+ARG UNIFI_VERSION='8.0.28'
 
 ### Environment variables
 ENV TERM='xterm' \
-    UNIFI_VERSION="${UNIFI_VERSION}" \
+    LIBSSL11_VERSION="${LIBSS11_VERSION}" \
+    JAVA_VERSION="${JAVA_VERSION}" \
     MONGO_VERSION="${MONGO_VERSION}" \
-    JAVA_VERSION="${JAVA_VERSION}"
+    MONGO_ARCH="${MONGO_ARCH}" \
+    UNIFI_VERSION="${UNIFI_VERSION}"
 
 # Copy config files
 COPY root/ /
@@ -28,15 +32,10 @@ RUN set -x && \
       libcap2 \
       logrotate \
     && \
-    curl -SsL https://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.1n-0+deb11u5_amd64.deb -o /tmp/libssl1.1_1.1.1n-0+deb11u5_amd64.deb && \
-    dpkg -i /tmp/libssl1.1_1.1.1n-0+deb11u5_amd64.deb && \
-    curl -SsL https://www.mongodb.org/static/pgp/server-${MONGO_VERSION}.asc -o /tmp/mongo.asc && \
-    apt-key add /tmp/mongo.asc && \
-    echo "deb http://repo.mongodb.org/apt/debian bookworm/mongodb-org/${MONGO_VERSION} main" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_VERSION}.list && \
-    apt-get update && \
-    apt-get -y --no-install-recommends install \
-      mongodb-org \
-    && \
+    curl -SsL https://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_${LIBSS11_VERSION}_${MONGO_ARCH}.deb -o /tmp/libssl1.1_${LIBSS11_VERSION}_${MONGO_ARCH}.deb && \
+    dpkg -i /tmp/libssl1.1_${LIBSS11_VERSION}_${MONGO_ARCH}.deb && \
+    curl -SsL https://repo.mongodb.org/apt/debian/dists/buster/mongodb-org/${MONGO_VERSION:3}/main/binary-${MONGO_ARCH}/mongodb-org-server_${MONGO_VERSION}_amd64.deb -o /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
+    dpkg -i /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
     curl -SsL https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb -o /tmp/unifi.deb && \
     dpkg -i /tmp/unifi.deb && \
     mkdir -p /config && \
