@@ -2,7 +2,7 @@ FROM digrouz/debian-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ARG JAVA_VERSION='17'
-ARG MONGO_VERSION='7.0.15'
+ARG MONGO_VERSION='7.0.16'
 ARG MONGO_ARCH='amd64'
 ARG UNIFI_VERSION='8.6.9'
 
