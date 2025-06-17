@@ -4,7 +4,7 @@ LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 ARG JAVA_VERSION='17'
 ARG MONGO_VERSION='7.0.21'
 ARG MONGO_ARCH='amd64'
-ARG UNIFI_VERSION='9.1.120'
+ARG UNIFI_VERSION='9.2.87'
 
 ### Environment variables
 ENV TERM='xterm' \
