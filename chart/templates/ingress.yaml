@@ -28,8 +28,6 @@ spec:
             name: {{ include "unifi-controller.fullname" . }}-svc
             port:
               name: webui
-            scheme: https
-            passHostHeader: true
   {{- if .Values.ingress.webui.tls }}
   tls:
     - hosts:
@@ -67,8 +65,6 @@ metadata:
             name: {{ include "unifi-controller.fullname" . }}-svc
             port:
               name: api
-            scheme: https
-            passHostHeader: true
   {{- if .Values.ingress.api.tls }}
   tls:
     - hosts:
