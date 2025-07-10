@@ -1,0 +1,93 @@
+## @section Kubernetes settings
+##
+image:
+  ## @param image.registry unifi-controller image registry
+  ##
+  registry: docker.io
+  ## @param image.repository unifi-controller image repository
+  ##
+  repository: digrouz/unifi-controller
+  ##
+  ## @param image.tag unifi-controller image tag
+  ## Ref: https://hub.docker.com/r/digrouz/unifi-controller/tags
+  ##
+  tag: "latest"
+  ## @param image.pullPolicy unifi-controller image pull policy
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: Always
+## @param fullnameOverride String to override the application name.
+##
+fullnameOverride: ""
+## @section Service Configuration
+##
+service:
+  ## @param service.uid user id running unifi-controller
+  ##
+  uid: 12345
+  ## @param service.gid group id running unifi-controller
+  ##
+  gid: 12345
+  ## @param service.autoupgrade apply OS updates inside container at startup
+  ##
+  autoupgrade: 0
+  ## @param service.tz Time Zone
+  ##
+  tz: Europe/Brussels
+ingress:
+  webui:
+    ## @param ingress.webui.enabled Enable ingress for unifi-controller webui
+    ##
+    enabled: true
+    ## @param ingress.webui.ingressClassName Ingress class name for unifi-controller webui ingress
+    ##
+    ingressClassName: traefik
+    ## @param ingress.webui.host Host for unifi-controller webui ingress
+    ##
+    host: ""
+    ## @param ingress.webui.tls Enable TLS for unifi-controller webui ingress
+    ##
+    tls: true
+    ## @param ingress.webui.annotations Annotations for unifi-controller webui ingress
+    ##
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: []
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+  api:
+    ## @param ingress.api.enabled Enable ingress for unifi-controller api
+    ##
+    enabled: true
+    ## @param ingress.webui.ingressClassName Ingress class name for unifi-controller webui ingress
+    ##
+    ingressClassName: traefik
+    ## @param ingress.api.host Host for unifi-controller api ingress
+    ##
+    host: ""
+    ## @param ingress.api.tls Enable TLS for unifi-controller api ingress
+    ##
+    tls: true
+    ## @param ingress.api.annotations Annotations for unifi-controller api ingress
+    ##
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: []
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+## @section Storage persistence Configuration
+##
+persistence:
+  config:
+    ## @param persistence.config.enabled Enable persistence for unifi-controller config
+    ## If enabled, the config will be stored in a persistent volume
+    ## If disabled, the config will be stored in a temporary volume
+    enabled: true
+    ## @param persistence.config.storageClass Storage class for unifi-controller config
+    ## If not set, the default storage class will be used
+    storageClass: default
+    ## @param persistence.config.existingClaim Existing persistent volume claim for unifi-controller config
+    ## If set, the config will be stored in the existing persistent volume claim
+    existingClaim: ""
+    ## @param persistence.config.accessMode Access mode for unifi-controller config
+    ## If not set, the default access mode will be used
+    accessMode: ReadWriteOnce
+    ## @param persistence.config.size Size of the persistent volume for unifi-controller config
+    ## If not set, the default size will be used
+    size: 1024Mi

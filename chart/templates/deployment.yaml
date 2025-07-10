@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "unifi-controller.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: unifi-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: unifi-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: unifi-controller
+    spec:
+      containers:
+        - name: unifi-controller
+          image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+            - containerPort: 8443
+            - containerPort: 8880
+            - containerPort: 8843
+            - containerPort: 3478
+            - containerPort: 10001
+            - containerPort: 1900
+          volumeMounts:
+            - mountPath: /config
+              name: unifi-controller-config
+          env:
+            - name: GID
+              value: "{{ .Values.service.gid }}"
+            - name: UID
+              value: "{{ .Values.service.uid }}"
+            - name: TZ
+              value: "{{ .Values.service.tz }}"
+            - name: AUTOUPGRADE
+              value: "{{ .Values.service.autoupgrade }}"
+      volumes:
+        - name: unifi-controller-config
+          {{- if .Values.persistence.config.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "unifi-controller.fullname" . }}-config-pvc
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+

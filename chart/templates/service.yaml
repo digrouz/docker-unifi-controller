@@ -1,0 +1,33 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "unifi-controller.fullname" . }}-svc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: unifi-controller
+spec:
+  ports:
+  - port: 8080
+    name: api
+    protocol: TCP
+  - port: 8443
+    name: webui
+    protocol: TCP
+  - port: 8880
+    name: webredirect
+    protocol: TCP
+  - port: 8843
+    name: websecureredirect
+    protocol: TCP
+  - port: 3478
+    name: stun
+    protocol: UDP
+  - port: 10001
+    name: apdiscovery
+    protocol: UDP
+  - port: 1900
+    name: l2discovery
+    protocol: UDP
+  selector:
+    app.kubernetes.io/component: unifi-controller

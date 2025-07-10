@@ -69,6 +69,7 @@ This variable is not mandatory and specifies the maximum memory alocated to the 
 
 * This container is built using [s6-overlay](https://github.com/just-containers/s6-overlay)
 * The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e AUTOUPGRADE=1` at container creation.
+* An helm chart is available of in the [chart folder](https://github.com/digrouz/docker-unifi-controller/tree/master/chart) with an example [value.yaml](https://github.com/digrouz/docker-unifi-controller/tree/master/chart/value.yaml)
 * Port used for device and application communication: `8080` 
 * Port used for application GUI/API as seen in a web browser: `8443`
 * Port used for HTTP portal redirection: `8880`
