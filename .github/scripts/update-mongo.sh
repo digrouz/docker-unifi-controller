@@ -3,7 +3,7 @@
 MONGO_URL="https://www.mongodb.com/download-center/community/releases"
 
 LAST_VERSION=$(curl -SsL ${MONGO_URL} | \
-               grep -o -e 'https://repo.mongodb.org/apt/debian/dists/bookworm/mongodb-org/7.0/main/binary-amd64/mongodb-org-server_7.0.[0-9]\+_amd64.deb' | \
+               grep -o -e 'https://repo.mongodb.org/apt/debian/dists/bookworm/mongodb-org/8.0/main/binary-amd64/mongodb-org-server_8.0.[0-9]\+_amd64.deb' | \
                uniq | \
                grep -o -e '[0-9]\+.[0-9]\+.[0-9]\+'
               )
