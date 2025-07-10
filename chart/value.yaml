@@ -6,7 +6,7 @@ image:
   registry: docker.io
   ## @param image.repository unifi-controller image repository
   ##
-  repository: digrouz/unifi-controller
+  repository: ndgconsulting/unifi-controller
   ##
   ## @param image.tag unifi-controller image tag
   ## Ref: https://hub.docker.com/r/digrouz/unifi-controller/tags
