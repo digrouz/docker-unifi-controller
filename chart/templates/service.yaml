@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ include "unifi-controller.fullname" . }}-svc
+  name: {{ include "unifi-controller.fullname" . }}-webui-svc
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: unifi-controller
@@ -11,11 +11,23 @@ metadata:
     traefik.ingress.kubernetes.io/service.serversscheme: "https"
 spec:
   ports:
-  - port: 8080
-    name: api
-    protocol: TCP
   - port: 8443
     name: webui
+    protocol: TCP
+  selector:
+    app.kubernetes.io/component: unifi-controller
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "unifi-controller.fullname" . }}-svc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: unifi-controller
+spec:
+  ports:
+  - port: 8080
+    name: api
     protocol: TCP
   - port: 8880
     name: webredirect
