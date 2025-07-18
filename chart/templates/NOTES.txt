@@ -1,0 +1,7 @@
+Your UniFi Network Application has been deployed.
+
+To access the UniFi web UI, browse to:
+https://{{ .Values.ingress.webui.host }}
+
+To access the UniFi API, use the following endpoint:
+https://{{ .Values.ingress.api.host }}

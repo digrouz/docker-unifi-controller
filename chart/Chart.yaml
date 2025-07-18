@@ -1,3 +1,11 @@
 apiVersion: v2
 name: unifi-controller
-version: 0.0.2
+description: A Helm chart for the UniFi Network Application
+type: application
+version: 0.0.3
+# This is the version of the application being deployed.
+# It is a good practice to keep this in sync with the image tag.
+appVersion: "latest"
+maintainers:
+  - name: digrouz
+    email: digrouz+github@proton.me
