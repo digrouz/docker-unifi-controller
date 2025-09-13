@@ -46,6 +46,5 @@ spec:
     kind: Rule
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:
-        name: api
+      port:  8080
 {{- end }}
