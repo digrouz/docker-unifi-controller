@@ -48,5 +48,4 @@ spec:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8080
     weight: 10
-    terminationDelay: 400
 {{- end }}
