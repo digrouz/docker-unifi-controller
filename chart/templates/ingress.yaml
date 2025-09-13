@@ -42,10 +42,8 @@ spec:
   entryPoints:
     - {{ .Values.ingress.api.traefik.entrypoint }}
   routes:
-  - kind: Rule
-    match: Host(`{{ .Values.ingress.api.host }}`)
+  - match: Host(`{{ .Values.ingress.api.host }}`)
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8080
-    weight: 10
 {{- end }}
