@@ -39,6 +39,9 @@ metadata:
   name: {{ include "unifi-controller.fullname" . }}-api
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
   entryPoints:
     - {{ .Values.ingress.api.traefik.entrypoint }}
   routes:
