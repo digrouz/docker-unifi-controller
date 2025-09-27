@@ -57,9 +57,9 @@ ingress:
     ##
     host: ""
   api:
-    ## @param ingress.api.host Host for unifi-controller api ingress
+    ## @param ingress.api.priotiry priority for unifi-controller api ingressRouteTCP
     ##
-    host: ""
+    priority: ""
     ## @param ingress.api.traefik.entrypoint Traefik entrypoint for unifi-controller api ingress
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
