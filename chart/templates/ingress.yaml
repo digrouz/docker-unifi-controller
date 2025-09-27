@@ -43,7 +43,7 @@ spec:
     - {{ .Values.ingress.api.traefik.entrypoint }}
   routes:
   - match: HostSNI(`*`)
-    priority: {{ .Values.ingress.api.traefik.priority }}
+    priority: {{ .Values.ingress.api.priority }}
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8080
