@@ -53,16 +53,16 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
 metadata:
-  name: {{ include "unifi-controller.fullname" . }}-webdirect
+  name: {{ include "unifi-controller.fullname" . }}-webredirect
   namespace: {{ .Release.Namespace }}
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
   entryPoints:
-    - {{ .Values.ingress.webdirect.traefik.entrypoint }}
+    - {{ .Values.ingress.webredirect.traefik.entrypoint }}
   routes:
   - match: HostSNI(`*`)
-    priority: {{ .Values.ingress.webdirect.priority }}
+    priority: {{ .Values.ingress.webredirect.priority }}
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8880
