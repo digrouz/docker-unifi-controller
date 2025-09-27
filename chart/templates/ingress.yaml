@@ -38,6 +38,7 @@ kind: IngressRouteTCP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-api
   namespace: {{ .Release.Namespace }}
+  kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
   entryPoints:
     - {{ .Values.ingress.api.traefik.entrypoint }}
