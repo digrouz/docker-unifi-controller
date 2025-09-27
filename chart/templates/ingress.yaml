@@ -48,7 +48,6 @@ spec:
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8080
-{{- end }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
