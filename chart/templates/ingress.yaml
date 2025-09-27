@@ -66,4 +66,21 @@ spec:
     services:
     - name: {{ include "unifi-controller.fullname" . }}-svc
       port:  8880
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "unifi-controller.fullname" . }}-websecureredirect
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
+spec:
+  entryPoints:
+    - {{ .Values.ingress.websecureredirect.traefik.entrypoint }}
+  routes:
+  - match: HostSNI(`*`)
+    priority: {{ .Values.ingress.websecureredirect.priority }}
+    services:
+    - name: {{ include "unifi-controller.fullname" . }}-svc
+      port:  8843
 {{- end }}

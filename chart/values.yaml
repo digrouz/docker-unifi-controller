@@ -72,6 +72,14 @@ ingress:
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
       entrypoint: ""
+  websecureredirect:
+    ## @param ingress.websecureredirect.priority priority for unifi-controller websecureredirect ingressRouteTCP
+    ##
+    priority: ""
+    ## @param ingress.websecureredirect.traefik.entrypoint Traefik entrypoint for unifi-controller websecureredirect ingress
+    ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
+    traefik:
+      entrypoint: ""
 ## @section Storage persistence Configuration
 ##
 persistence:
