@@ -88,6 +88,14 @@ ingress:
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
       entrypoint: ""
+  stun:
+    ## @param ingress.stun.weight weight for unifi-controller stun ingressRouteUDP
+    ##
+    weight: ""
+    ## @param ingress.stun.traefik.entrypoint Traefik entrypoint for unifi-controller stun ingress
+    ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
+    traefik:
+      entrypoint: ""
 ## @section Storage persistence Configuration
 ##
 persistence:
