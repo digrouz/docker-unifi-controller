@@ -96,6 +96,14 @@ ingress:
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
       entrypoint: ""
+  apidiscovery:
+    ## @param ingress.apidiscovery.weight weight for unifi-controller apidiscovery ingressRouteUDP
+    ##
+    weight: ""
+    ## @param ingress.apidiscovery.traefik.entrypoint Traefik entrypoint for unifi-controller apidiscovery ingress
+    ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
+    traefik:
+      entrypoint: ""
 ## @section Storage persistence Configuration
 ##
 persistence:
