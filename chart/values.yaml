@@ -96,11 +96,11 @@ ingress:
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
       entrypoint: ""
-  apidiscovery:
-    ## @param ingress.apidiscovery.weight weight for unifi-controller apidiscovery ingressRouteUDP
+  apdiscovery:
+    ## @param ingress.apdiscovery.weight weight for unifi-controller apdiscovery ingressRouteUDP
     ##
     weight: ""
-    ## @param ingress.apidiscovery.traefik.entrypoint Traefik entrypoint for unifi-controller apidiscovery ingress
+    ## @param ingress.apdiscovery.traefik.entrypoint Traefik entrypoint for unifi-controller apdiscovery ingress
     ## Ref: https://doc.traefik.io/traefik/routing/entrypoints/ 
     traefik:
       entrypoint: ""
