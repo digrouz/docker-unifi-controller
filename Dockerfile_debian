@@ -1,5 +1,5 @@
 FROM digrouz/debian-s6:latest
-LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+LABEL maintainer="DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ARG JAVA_VERSION='17'
 ARG MONGO_VERSION='8.0.17'
@@ -30,7 +30,7 @@ RUN set -x && \
       logrotate \
     && \
     MONGO_MAJOR=$(echo "${MONGO_VERSION}" | awk -F '.' '{print $1"."$2}')  && \
-    curl -SsL https://repo.mongodb.org/apt/debian/dists/bookworm/mongodb-org/${MONGO_MAJOR}/main/binary-${MONGO_ARCH}/mongodb-org-server_${MONGO_VERSION}_amd64.deb -o /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
+    curl -SsL https://repo.mongodb.org/apt/debian/dists/trixie/mongodb-org/${MONGO_MAJOR}/main/binary-${MONGO_ARCH}/mongodb-org-server_${MONGO_VERSION}_amd64.deb -o /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
     dpkg -i /tmp/mongodb-org-server_${MONGO_VERSION}_${MONGO_ARCH}.deb && \
     curl -SsL https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb -o /tmp/unifi.deb && \
     dpkg -i /tmp/unifi.deb && \
@@ -47,4 +47,4 @@ RUN set -x && \
 VOLUME ["/config"]
 
 # Expose ports
-EXPOSE 8080 8443 8843 8880 1900/UDP 3478/UDP 10001/UDP
+EXPOSE 8080 8443 8843 8880 1900/udp 3478/udp 10001/udp
