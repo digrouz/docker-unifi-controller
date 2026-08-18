@@ -38,9 +38,8 @@ kind: IngressRouteTCP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-api
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.api.traefik.entrypoint }}
   routes:
@@ -55,9 +54,8 @@ kind: IngressRouteTCP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-webredirect
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.webredirect.traefik.entrypoint }}
   routes:
@@ -72,9 +70,8 @@ kind: IngressRouteTCP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-websecureredirect
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.websecureredirect.traefik.entrypoint }}
   routes:
@@ -89,9 +86,8 @@ kind: IngressRouteUDP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-l2discovery
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.l2discovery.traefik.entrypoint }}
   routes:
@@ -105,9 +101,8 @@ kind: IngressRouteUDP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-stun
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.stun.traefik.entrypoint }}
   routes:
@@ -121,9 +116,8 @@ kind: IngressRouteUDP
 metadata:
   name: {{ include "unifi-controller.fullname" . }}-apdiscovery
   namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   entryPoints:
     - {{ .Values.ingress.apdiscovery.traefik.entrypoint }}
   routes:
