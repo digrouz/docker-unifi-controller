@@ -2,7 +2,7 @@ apiVersion: v2
 name: unifi-controller
 description: A Helm chart for the UniFi Network Application
 type: application
-version: 0.0.6
+version: 0.1.0
 # This is the version of the application being deployed.
 # It is a good practice to keep this in sync with the image tag.
 appVersion: "latest"
