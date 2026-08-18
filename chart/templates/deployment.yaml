@@ -35,7 +35,7 @@ spec:
               name: webredirect
               protocol: TCP
             - containerPort: 8843
-              name: websecureredirect
+              name: websecredirect
               protocol: TCP
             - containerPort: 3478
               name: stun
