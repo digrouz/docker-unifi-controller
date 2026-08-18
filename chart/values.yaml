@@ -37,18 +37,47 @@ service:
   ## @param service.tz Time Zone
   ##
   tz: Europe/Brussels
+## @section JVM sizing
+##
+jvm:
+  ## @param jvm.xms Initial JVM heap size in MB (Xms).
+  ##
+  xms: 256
+  ## @param jvm.xmx Maximum JVM heap size in MB (Xmx).
+  ##
+  xmx: 2048
+## @section Resources
+##
+resources:
+  ## @param resources.requests Kubernetes resource requests for the container.
+  ##
+  requests:
+    cpu: 250m
+    memory: 1Gi
+  ## @param resources.limits Kubernetes resource limits for the container.
+  ## UniFi is memory-hungry; a memory limit prevents OOMKill.
+  ##
+  limits:
+    memory: 3Gi
+## @param imagePullSecrets List of image pull secrets (for private registries).
+##
+imagePullSecrets: []
 ingress:
   ## @param ingress.enabled Enable ingress for the application.
+  ## When enabled, ingress.webui.host must be set.
   ##
-  enabled: true
+  enabled: false
   ## @param ingress.ingressClassName Ingress class name for the application.
   ##
   ingressClassName: traefik
   ## @param ingress.annotations Annotations for the application ingress.
   ##
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: []
     cert-manager.io/cluster-issuer: letsencrypt-prod
+  ## @param ingress.middlewares Optional list of Traefik middlewares for the webui router.
+  ## Entries are joined with a comma into the traefik router.middlewares annotation.
+  ##
+  middlewares: []
   ## @param ingress.tls Enable TLS for the application ingress.
   ##
   tls: true

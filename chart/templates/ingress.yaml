@@ -1,4 +1,7 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.enabled }}
+{{- if not .Values.ingress.webui.host }}
+{{- fail "ingress.webui.host must be set when ingress.enabled is true" }}
+{{- end }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -7,9 +10,14 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unifi-controller.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- if or .Values.ingress.middlewares .Values.ingress.annotations }}
   annotations:
+    {{- with .Values.ingress.middlewares }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ . | join "," | quote }}
+    {{- end }}
+    {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
@@ -32,6 +40,7 @@ spec:
         - {{ .Values.ingress.webui.host | quote }}
       secretName: {{ printf "%s-webui-tls" (include "unifi-controller.fullname" .) }}
   {{- end }}
+{{- if .Values.ingress.api.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -43,11 +52,15 @@ spec:
   entryPoints:
     - {{ .Values.ingress.api.traefik.entrypoint }}
   routes:
-  - match: HostSNI(`*`)
-    priority: {{ .Values.ingress.api.priority }}
-    services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  8080
+    - match: HostSNI(`*`)
+      {{- if .Values.ingress.api.priority }}
+      priority: {{ .Values.ingress.api.priority | int }}
+      {{- end }}
+      services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 8080
+{{- end }}
+{{- if .Values.ingress.webredirect.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -59,11 +72,15 @@ spec:
   entryPoints:
     - {{ .Values.ingress.webredirect.traefik.entrypoint }}
   routes:
-  - match: HostSNI(`*`)
-    priority: {{ .Values.ingress.webredirect.priority }}
-    services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  8880
+    - match: HostSNI(`*`)
+      {{- if .Values.ingress.webredirect.priority }}
+      priority: {{ .Values.ingress.webredirect.priority | int }}
+      {{- end }}
+      services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 8880
+{{- end }}
+{{- if .Values.ingress.websecureredirect.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -75,11 +92,15 @@ spec:
   entryPoints:
     - {{ .Values.ingress.websecureredirect.traefik.entrypoint }}
   routes:
-  - match: HostSNI(`*`)
-    priority: {{ .Values.ingress.websecureredirect.priority }}
-    services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  8843
+    - match: HostSNI(`*`)
+      {{- if .Values.ingress.websecureredirect.priority }}
+      priority: {{ .Values.ingress.websecureredirect.priority | int }}
+      {{- end }}
+      services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 8843
+{{- end }}
+{{- if .Values.ingress.l2discovery.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
@@ -91,10 +112,14 @@ spec:
   entryPoints:
     - {{ .Values.ingress.l2discovery.traefik.entrypoint }}
   routes:
-  - services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  1900
-      weight: {{ .Values.ingress.l2discovery.weight }}
+    - services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 1900
+          {{- if .Values.ingress.l2discovery.weight }}
+          weight: {{ .Values.ingress.l2discovery.weight | int }}
+          {{- end }}
+{{- end }}
+{{- if .Values.ingress.stun.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
@@ -106,10 +131,14 @@ spec:
   entryPoints:
     - {{ .Values.ingress.stun.traefik.entrypoint }}
   routes:
-  - services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  3478
-      weight: {{ .Values.ingress.stun.weight }}
+    - services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 3478
+          {{- if .Values.ingress.stun.weight }}
+          weight: {{ .Values.ingress.stun.weight | int }}
+          {{- end }}
+{{- end }}
+{{- if .Values.ingress.apdiscovery.traefik.entrypoint }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
@@ -121,8 +150,11 @@ spec:
   entryPoints:
     - {{ .Values.ingress.apdiscovery.traefik.entrypoint }}
   routes:
-  - services:
-    - name: {{ include "unifi-controller.fullname" . }}-svc
-      port:  10001
-      weight: {{ .Values.ingress.apdiscovery.weight }}
+    - services:
+        - name: {{ include "unifi-controller.fullname" . }}-svc
+          port: 10001
+          {{- if .Values.ingress.apdiscovery.weight }}
+          weight: {{ .Values.ingress.apdiscovery.weight | int }}
+          {{- end }}
+{{- end }}
 {{- end }}

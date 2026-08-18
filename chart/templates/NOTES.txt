@@ -1,7 +1,14 @@
 Your UniFi Network Application has been deployed.
 
+{{- if .Values.ingress.enabled }}
 To access the UniFi web UI, browse to:
 https://{{ .Values.ingress.webui.host }}
+{{- else }}
+Ingress is disabled. To reach the web UI, port-forward the service:
+  kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "unifi-controller.fullname" . }}-webui-svc 8443:8443
+then browse to https://localhost:8443
+{{- end }}
 
-To access the UniFi API, use the following endpoint:
-https://{{ .Values.ingress.api.host }}
+Notes:
+- The first boot takes several minutes (Java + embedded MongoDB initialization).
+- Default credentials are admin / admin; you will be asked to change the password.

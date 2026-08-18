@@ -16,18 +16,36 @@ spec:
       labels:
         app.kubernetes.io/component: unifi-controller
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: unifi-controller
           image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
+              name: api
+              protocol: TCP
             - containerPort: 8443
+              name: webui
+              protocol: TCP
             - containerPort: 8880
+              name: webredirect
+              protocol: TCP
             - containerPort: 8843
+              name: websecureredirect
+              protocol: TCP
             - containerPort: 3478
+              name: stun
+              protocol: UDP
             - containerPort: 10001
+              name: apdiscovery
+              protocol: UDP
             - containerPort: 1900
+              name: l2discovery
+              protocol: UDP
           volumeMounts:
             - mountPath: /config
               name: unifi-controller-config
@@ -40,11 +58,36 @@ spec:
               value: "{{ .Values.service.tz }}"
             - name: AUTOUPGRADE
               value: "{{ .Values.service.autoupgrade }}"
+            - name: XMS
+              value: "{{ .Values.jvm.xms }}"
+            - name: XMX
+              value: "{{ .Values.jvm.xmx }}"
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          startupProbe:
+            tcpSocket:
+              port: 8443
+            periodSeconds: 5
+            failureThreshold: 120
+          readinessProbe:
+            tcpSocket:
+              port: 8443
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: 8443
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
       volumes:
         - name: unifi-controller-config
           {{- if .Values.persistence.config.enabled }}
           persistentVolumeClaim:
-            claimName: {{ include "unifi-controller.fullname" . }}-config-pvc
+            claimName: {{ .Values.persistence.config.existingClaim | default (printf "%s-config-pvc" (include "unifi-controller.fullname" .)) }}
           {{- else }}
           emptyDir: { }
           {{- end }}
